@@ -1,0 +1,21 @@
+@import "./Reset.css";
+
+:root {
+    --white: #ffffff;
+    --white-dark: #e7e7e7;
+    --red: #FF0000;
+    --red-hover: #ca0303;
+    --teal: #008080;
+    --teal-hover: #026363;
+    --gray-light: #b6b4b4;
+    --gray-hover: #7e7d7d;
+    --gray: #3f3f3f;
+    --gray-dark: #252525;
+    --blue: #1616aa;
+    --blue-hover: #000080;
+    --black: #000000;
+    --yellow: #f7a92b;
+    --yellow-hover: #da8d12;
+}
+
+;

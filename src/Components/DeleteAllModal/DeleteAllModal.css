@@ -1,0 +1,46 @@
+.deleteAllModal {
+    background-color: var(--white);
+    padding: 3rem;
+    border-radius: .3rem;
+}
+
+.deleteAllModal-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--red-hover);
+    padding-bottom: 2rem;
+}
+
+.deleteAllModal-btnBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deleteAllModal-btnBox-btn {
+    width: 45%;
+    padding: .5rem 0;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    border-radius: .3rem;
+}
+
+.deleteAllModal-btnBox-btn.yes {
+    background-color: var(--yellow);
+}
+
+.deleteAllModal-btnBox-btn.yes:hover {
+    cursor: pointer;
+    background-color: var(--yellow-hover);
+}
+
+.deleteAllModal-btnBox-btn.no {
+    background-color: var(--gray-light);
+}
+
+.deleteAllModal-btnBox-btn.no:hover {
+    cursor: pointer;
+    background-color: var(--gray-hover);
+}
