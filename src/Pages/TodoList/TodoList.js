@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import "./TodoList.css"
 import DeleteAllModal from '../../Components/DeleteAllModal/DeleteAllModal'
-import { FaChevronUp } from "react-icons/fa";
-import { FaChevronDown } from "react-icons/fa";
+import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
+import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 
 export default function TodoList() {
 
@@ -100,10 +100,10 @@ export default function TodoList() {
                         <div className='todolist-ul-li-btnBox'>
                             <button className='todolist-ul-li-btnBox-btn delete' onClick={() => deleteTodo(index)}>Delete</button>
                             <button className='todolist-ul-li-btnBox-btn move' onClick={() => moveUpTodo(index)}>
-                                <FaChevronUp></FaChevronUp>
+                                <MdOutlineKeyboardDoubleArrowUp></MdOutlineKeyboardDoubleArrowUp>
                             </button>
                             <button className='todolist-ul-li-btnBox-btn move' onClick={() => moveDownTodo(index)}>
-                                <FaChevronDown></FaChevronDown>
+                                <MdKeyboardDoubleArrowDown></MdKeyboardDoubleArrowDown>
                             </button>
                         </div>
                     </li>

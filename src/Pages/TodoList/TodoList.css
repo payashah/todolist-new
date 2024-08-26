@@ -70,6 +70,7 @@
     font-size: 20px;
 
 
+
 }
 
 .todolist-ul-li-btnBox-btn.delete {
@@ -81,6 +82,8 @@
 .todolist-ul-li-btnBox-btn.delete:hover {
     cursor: pointer;
     background-color: var(--red-hover);
+    transition: .4s;
+
 }
 
 .todolist-ul-li-btnBox-btn.move {
