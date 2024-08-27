@@ -97,3 +97,18 @@
     background-color: var(--gray-hover);
     color: var(--white);
 }
+
+.json {
+    margin: 2rem;
+}
+
+.json-title {
+    color: var(--yellow);
+    font-size: 25px;
+    margin-bottom: 2rem;
+}
+
+.json-items {
+    font-size: 20px;
+    margin-bottom: .5rem;
+}
