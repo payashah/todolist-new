@@ -3,11 +3,16 @@ import "./TodoList.css";
 import DeleteAllModal from "../../Components/DeleteAllModal/DeleteAllModal";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { submitTodo } from "../../Redux/Store/StoreTodoList";
 
 export default function TodoList() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState("");
     const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+
+    const TodoList = useSelector((state) => state.TodoList)
+    const dispatch = useDispatch()
 
     const inputChangeHandler = (event) => {
         setNewTodo(event.target.value);
@@ -15,7 +20,7 @@ export default function TodoList() {
 
 
 
-    const submitTodo = (event) => {
+    const submitTodoHandler = (event) => {
         event.preventDefault();
 
         if (newTodo.trim() !== "") {
@@ -27,7 +32,13 @@ export default function TodoList() {
                 return [...prevState, newestTodo];
             });
             setNewTodo("");
+
+            dispatch(submitTodo())
+
         }
+
+
+
     };
 
     const deleteTodo = (index) => {
@@ -189,7 +200,7 @@ export default function TodoList() {
                         maxLength={20}
                     />
                     {newTodo.trim() !== "" ? (
-                        <button className="todolist-btn" onClick={submitTodo}>
+                        <button className="todolist-btn" onClick={submitTodoHandler}>
                             Submit
                         </button>
                     ) : (
