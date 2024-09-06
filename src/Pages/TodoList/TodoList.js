@@ -28,20 +28,17 @@ export default function TodoList() {
                 id: todos.length + 1,
                 title: newTodo,
             };
-            setTodos((prevState) => {
-                return [...prevState, newestTodo];
-            });
-            setNewTodo("");
-
-            dispatch(submitTodo())
+            dispatch(submitTodo(
+                setTodos((prevState) => {
+                    return [...prevState, newestTodo];
+                }),
+                setNewTodo("")
+            ))
 
         }
-
-
-
     };
 
-    const deleteTodo = (index) => {
+    const deleteTodoHandler = (index) => {
         const todoListAfterDelete = todos.filter((todo, todoID) => {
             return todoID !== index;
         });
@@ -51,6 +48,10 @@ export default function TodoList() {
 
         setTodos(todoListAfterDeleteRegular);
     };
+
+
+
+
     const deleteAllHandler = (event) => {
         event.preventDefault();
         setIsShowDeleteModal(true);
@@ -197,7 +198,7 @@ export default function TodoList() {
                         placeholder="Enter New Todo ..."
                         value={newTodo}
                         onChange={inputChangeHandler}
-                        maxLength={20}
+                        maxLength={30}
                     />
                     {newTodo.trim() !== "" ? (
                         <button className="todolist-btn" onClick={submitTodoHandler}>
@@ -235,7 +236,7 @@ export default function TodoList() {
                         <div className="todolist-ul-li-btnBox">
                             <button
                                 className="todolist-ul-li-btnBox-btn delete"
-                                onClick={() => deleteTodo(index)}
+                                onClick={() => deleteTodoHandler(index)}
                             >
                                 Delete
                             </button>
