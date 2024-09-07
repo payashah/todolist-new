@@ -4,7 +4,7 @@ import DeleteAllModal from "../../Components/DeleteAllModal/DeleteAllModal";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, submitTodo } from "../../Redux/Store/StoreTodoList";
+import { deleteTodo, removeAllTodo, submitTodo } from "../../Redux/Store/StoreTodoList";
 import { v4 as uuidv4 } from "uuid"
 
 export default function TodoList() {
@@ -45,10 +45,21 @@ export default function TodoList() {
 
 
 
-    // const deleteAllHandler = (event) => {
-    //     event.preventDefault();
-    //     setIsShowDeleteModal(true);
-    // };
+    const deleteAllHandler = (event) => {
+        event.preventDefault();
+        setIsShowDeleteModal(true);
+    };
+
+    const acceptDeleteAll = () => {
+        setIsShowDeleteModal(false);
+        dispatch(removeAllTodo())
+    };
+    const rejectDeleteAll = () => {
+        setIsShowDeleteModal(false);
+    };
+
+
+
 
     // const moveUpTodo = (index) => {
     //     if (index > 0) {
@@ -76,13 +87,7 @@ export default function TodoList() {
     //         setTodos(todoListAfterMoveDownRegular);
     //     }
     // };
-    // const acceptDeleteAll = () => {
-    //     setIsShowDeleteModal(false);
-    //     setTodos([]);
-    // };
-    // const rejectDeleteAll = () => {
-    //     setIsShowDeleteModal(false);
-    // };
+
 
 
 
@@ -210,8 +215,8 @@ export default function TodoList() {
                         </button>
                     )}
                     {TodoList.length > 1 ? (
-                        <button className="todolist-btn" >
-                            {/* onClick={deleteAllHandler} */}
+                        <button className="todolist-btn" onClick={deleteAllHandler}
+                        >
                             Delete All
                         </button>
                     ) : (
@@ -254,8 +259,8 @@ export default function TodoList() {
             </ul>
             {isShowDeleteModal && (
                 <DeleteAllModal
-                // accept={acceptDeleteAll}
-                // reject={rejectDeleteAll}
+                    accept={acceptDeleteAll}
+                    reject={rejectDeleteAll}
                 ></DeleteAllModal>
             )}
 

@@ -13,6 +13,7 @@ const Slice = createSlice({
 
             state.push(newestTodo)
         },
+
         deleteTodo: (state, action) => {
             const todoListAfterDelete = state.filter((todo) => {
                 return todo.id !== action.payload.id;
@@ -21,9 +22,18 @@ const Slice = createSlice({
                 (todo) => ({ ...todo, id: uuidv4() + 1 })
             );
             return todoListAfterDeleteRegular
+        },
+
+        removeAllTodo: (state, action) => {
+            return []
+
+        },
+
+        moveUpTodo: (state, action) => {
+
         }
     }
 })
 
-export const { submitTodo, deleteTodo } = Slice.actions
+export const { submitTodo, deleteTodo, removeAllTodo } = Slice.actions
 export default Slice.reducer 
