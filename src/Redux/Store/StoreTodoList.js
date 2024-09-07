@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid"
 
 const Slice = createSlice({
     name: "TodoList",
@@ -6,21 +7,21 @@ const Slice = createSlice({
     reducers: {
         submitTodo: (state, action) => {
             const newestTodo = {
-                id: new Date(),
+                id: uuidv4(),
                 title: action.payload.todo
             };
 
             state.push(newestTodo)
         },
-        // deleteTodo: (state, action) => {
-        //     const todoListAfterDelete = state.filter((todo, todoID, index) => {
-        //         return todoID !== index;
-        //     });
-        //     const todoListAfterDeleteRegular = todoListAfterDelete.map(
-        //         (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-        //     );
-        //     return todoListAfterDeleteRegular
-        // }
+        deleteTodo: (state, action) => {
+            const todoListAfterDelete = state.filter((todo) => {
+                return todo.id !== action.payload.id;
+            });
+            const todoListAfterDeleteRegular = todoListAfterDelete.map(
+                (todo) => ({ ...todo, id: uuidv4() + 1 })
+            );
+            return todoListAfterDeleteRegular
+        }
     }
 })
 

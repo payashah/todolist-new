@@ -4,7 +4,8 @@ import DeleteAllModal from "../../Components/DeleteAllModal/DeleteAllModal";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { submitTodo } from "../../Redux/Store/StoreTodoList";
+import { deleteTodo, submitTodo } from "../../Redux/Store/StoreTodoList";
+import { v4 as uuidv4 } from "uuid"
 
 export default function TodoList() {
     // const [todos, setTodos] = useState([]);
@@ -37,16 +38,9 @@ export default function TodoList() {
         }
     };
 
-    // const deleteTodoHandler = (index) => {
-    //     const todoListAfterDelete = todos.filter((todo, todoID) => {
-    //         return todoID !== index;
-    //     });
-    //     const todoListAfterDeleteRegular = todoListAfterDelete.map(
-    //         (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-    //     );
-
-    //     setTodos(todoListAfterDeleteRegular);
-    // };
+    const deleteTodoHandler = (id) => {
+        dispatch(deleteTodo({ id }))
+    };
 
 
 
@@ -234,11 +228,11 @@ export default function TodoList() {
             <ul className="todolist-ul">
                 {TodoList.map((todo, index) => (
                     <li className="todolist-ul-li" key={todo.id}>
-                        <p className="todolist-ul-li-title">{todo.title}</p>
+                        <p className="todolist-ul-li-title">{index + 1} - {todo.title}</p>
                         <div className="todolist-ul-li-btnBox">
                             <button
                                 className="todolist-ul-li-btnBox-btn delete"
-                            // onClick={() => deleteTodoHandler(index)}
+                                onClick={() => deleteTodoHandler(todo.id)}
                             >
                                 Delete
                             </button>
