@@ -4,7 +4,7 @@ import DeleteAllModal from "../../Components/DeleteAllModal/DeleteAllModal";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, removeAllTodo, submitTodo } from "../../Redux/Store/StoreTodoList";
+import { deleteTodo, moveUpTodo, removeAllTodo, submitTodo } from "../../Redux/Store/StoreTodoList";
 import { v4 as uuidv4 } from "uuid"
 
 export default function TodoList() {
@@ -39,6 +39,9 @@ export default function TodoList() {
     };
 
     const deleteTodoHandler = (id) => {
+
+
+
         dispatch(deleteTodo({ id }))
     };
 
@@ -61,19 +64,24 @@ export default function TodoList() {
 
 
 
-    // const moveUpTodo = (index) => {
-    //     if (index > 0) {
-    //         const todoListAfterMoveUp = [...todos];
-    //         [todoListAfterMoveUp[index], todoListAfterMoveUp[index - 1]] = [
-    //             todoListAfterMoveUp[index - 1],
-    //             todoListAfterMoveUp[index],
-    //         ];
-    //         const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
-    //             (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-    //         );
-    //         setTodos(todoListAfterMoveUpRegular);
-    //     }
-    // };
+    const moveUpTodoHandler = (id) => {
+
+        // console.log("move", moveUpTodoHandler)
+        dispatch(moveUpTodo({ id }))
+
+
+
+
+        // const todoListAfterMoveUp = [...todos];
+        // [todoListAfterMoveUp[index], todoListAfterMoveUp[index - 1]] = [
+        //     todoListAfterMoveUp[index - 1], // todoListAfterMoveUp[index],
+        // ];
+        // const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
+        //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
+        // );
+        // setTodos(todoListAfterMoveUpRegular);
+
+    };
     // const moveDownTodo = (index) => {
     //     if (index < todos.length - 1) {
     //         const todoListAfterMoveDown = [...todos];
@@ -243,13 +251,13 @@ export default function TodoList() {
                             </button>
                             <button
                                 className="todolist-ul-li-btnBox-btn move"
-                            // onClick={() => moveUpTodo(index)}
+                                onClick={() => moveUpTodoHandler(todo.id)}
                             >
                                 <MdOutlineKeyboardDoubleArrowUp className="todolist-ul-li-btnBox-btn-icon"></MdOutlineKeyboardDoubleArrowUp>
                             </button>
                             <button
                                 className="todolist-ul-li-btnBox-btn move"
-                            // onClick={() => moveDownTodo(index)}
+                            // onClick={() => moveDownTodoHandler(index)}
                             >
                                 <MdKeyboardDoubleArrowDown className="todolist-ul-li-btnBox-btn-icon"></MdKeyboardDoubleArrowDown>
                             </button>
