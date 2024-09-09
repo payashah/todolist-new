@@ -47,9 +47,13 @@ const Slice = createSlice({
                 // اضافه کردن آیتم به موقعیت جدید
 
                 todoListAfterMoveUp.splice(indexOfTodoToMoveUp - 1, 0, temp)
-            }
 
-            return todoListAfterMoveUp
+            }
+            const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
+                (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
+            )
+
+            return todoListAfterMoveUpRegular
 
 
 
