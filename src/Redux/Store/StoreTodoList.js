@@ -33,20 +33,20 @@ const Slice = createSlice({
         moveUpTodo: (state, action) => {
 
             const todoListAfterMoveUp = [...state];
-            const indexOfTodoToMoveUp = todoListAfterMoveUp.findIndex(
+            const indexOfTodoMoveUp = todoListAfterMoveUp.findIndex(
                 (todo) => todo.id === action.payload.id
             );
 
-            if (indexOfTodoToMoveUp > 0) {
-                const temp = todoListAfterMoveUp[indexOfTodoToMoveUp]
+            if (indexOfTodoMoveUp > 0) {
+                const tempUp = todoListAfterMoveUp[indexOfTodoMoveUp]
 
                 // حذف آیتم از موقعیت فعلی
 
-                todoListAfterMoveUp.splice(indexOfTodoToMoveUp, 1)
+                todoListAfterMoveUp.splice(indexOfTodoMoveUp, 1)
 
                 // اضافه کردن آیتم به موقعیت جدید
 
-                todoListAfterMoveUp.splice(indexOfTodoToMoveUp - 1, 0, temp)
+                todoListAfterMoveUp.splice(indexOfTodoMoveUp - 1, 0, tempUp)
 
             }
             const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
@@ -66,11 +66,56 @@ const Slice = createSlice({
             // );
             // return (todoListAfterMoveUpRegular);
 
-        }
+        },
+        moveDownTodo: (state, action) => {
+
+            const todoListAfterMoveDown = [...state];
+            const indexOfTodoMoveDown = todoListAfterMoveDown.findIndex(
+                (todo) => todo.id === action.payload.id
+            );
+
+            if (indexOfTodoMoveDown < todoListAfterMoveDown.length - 1) {
+
+
+                const tempDown = todoListAfterMoveDown[indexOfTodoMoveDown]
+
+                // حذف آیتم از موقعیت فعلی
+
+                todoListAfterMoveDown.splice(indexOfTodoMoveDown, 1)
+
+                // اضافه کردن آیتم به موقعیت جدید
+
+                todoListAfterMoveDown.splice(indexOfTodoMoveDown + 1, 0, tempDown)
+
+
+
+            }
+
+
+
+            const todoListAfterMoveDownRegular = todoListAfterMoveDown.map(
+                (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
+            )
+
+            return todoListAfterMoveDownRegular
+
+
+
+            // if (indexOfTodoToMoveUp > 0) {
+            //     [todoListAfterMoveUp[indexOfTodoToMoveUp - 1], [todoListAfterMoveUp[indexOfTodoToMoveUp]]] =
+            //         [todoListAfterMoveUp[indexOfTodoToMoveUp], todoListAfterMoveUp[indexOfTodoToMoveUp - 1]]
+            // }
+            // const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
+            //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
+            // );
+            // return (todoListAfterMoveUpRegular);
+
+        },
+
     }
 })
 
-export const { submitTodo, deleteTodo, removeAllTodo, moveUpTodo } = Slice.actions
+export const { submitTodo, deleteTodo, removeAllTodo, moveUpTodo, moveDownTodo } = Slice.actions
 export default Slice.reducer
 
 

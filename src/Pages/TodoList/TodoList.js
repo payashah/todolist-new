@@ -4,7 +4,7 @@ import DeleteAllModal from "../../Components/DeleteAllModal/DeleteAllModal";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, moveUpTodo, removeAllTodo, submitTodo } from "../../Redux/Store/StoreTodoList";
+import { deleteTodo, moveDownTodo, moveUpTodo, removeAllTodo, submitTodo } from "../../Redux/Store/StoreTodoList";
 import { v4 as uuidv4 } from "uuid"
 
 export default function TodoList() {
@@ -40,8 +40,6 @@ export default function TodoList() {
 
     const deleteTodoHandler = (id) => {
 
-
-
         dispatch(deleteTodo({ id }))
     };
 
@@ -69,9 +67,6 @@ export default function TodoList() {
         // console.log("move", moveUpTodoHandler)
         dispatch(moveUpTodo({ id }))
 
-
-
-
         // const todoListAfterMoveUp = [...todos];
         // [todoListAfterMoveUp[index], todoListAfterMoveUp[index - 1]] = [
         //     todoListAfterMoveUp[index - 1], // todoListAfterMoveUp[index],
@@ -82,19 +77,26 @@ export default function TodoList() {
         // setTodos(todoListAfterMoveUpRegular);
 
     };
-    // const moveDownTodo = (index) => {
-    //     if (index < todos.length - 1) {
-    //         const todoListAfterMoveDown = [...todos];
-    //         [todoListAfterMoveDown[index], todoListAfterMoveDown[index + 1]] = [
-    //             todoListAfterMoveDown[index + 1],
-    //             todoListAfterMoveDown[index],
-    //         ];
-    //         const todoListAfterMoveDownRegular = todoListAfterMoveDown.map(
-    //             (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-    //         );
-    //         setTodos(todoListAfterMoveDownRegular);
-    //     }
-    // };
+
+
+
+    const moveDownTodoHandler = (id) => {
+
+        dispatch(moveDownTodo({ id }))
+
+
+        // if (index < todos.length - 1) {
+        //     const todoListAfterMoveDown = [...todos];
+        //     [todoListAfterMoveDown[index], todoListAfterMoveDown[index + 1]] = [
+        //         todoListAfterMoveDown[index + 1],
+        //         todoListAfterMoveDown[index],
+        //     ];
+        //     const todoListAfterMoveDownRegular = todoListAfterMoveDown.map(
+        //         (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
+        //     );
+        //     setTodos(todoListAfterMoveDownRegular);
+        // }
+    };
 
 
 
@@ -257,7 +259,7 @@ export default function TodoList() {
                             </button>
                             <button
                                 className="todolist-ul-li-btnBox-btn move"
-                            // onClick={() => moveDownTodoHandler(index)}
+                                onClick={() => moveDownTodoHandler(todo.id)}
                             >
                                 <MdKeyboardDoubleArrowDown className="todolist-ul-li-btnBox-btn-icon"></MdKeyboardDoubleArrowDown>
                             </button>
