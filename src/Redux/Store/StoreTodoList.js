@@ -7,7 +7,7 @@ const Slice = createSlice({
     reducers: {
         submitTodo: (state, action) => {
             const newestTodo = {
-                id: state.length,
+                id: state.length + 1,
                 title: action.payload.todo
             };
 
