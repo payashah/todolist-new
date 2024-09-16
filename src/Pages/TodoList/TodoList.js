@@ -6,7 +6,7 @@ import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setNewTodo, deleteTodo, moveDownTodo, moveUpTodo, removeAllTodo, submitTodo, setSelectIndex, setDraggedItemIndex,
-    DragOver, keyDownDelete, setEditingIndex, setEditingField, keyDownEnter
+    DragOver, keyDownDelete, setNewTodoJson, setEditingIndex, setEditingField, keyDownEnter
 } from "../../Redux/Store/StoreTodoList";
 import { v4 as uuidv4 } from "uuid"
 
@@ -16,6 +16,7 @@ export default function TodoList() {
 
     const TodoList = useSelector((state) => state.todoListStore.todos)
     const NewTodo = useSelector((state) => state.todoListStore.newTodo)
+    const NewTodoJson = useSelector((state) => state.todoListStore.newTodoJson)
     const SelectedIndex = useSelector((state) => state.todoListStore.selectedIndex)
     const DraggedItemIndex = useSelector((state) => state.todoListStore.draggedItemIndex)
     const Delete = useSelector((state) => state.todoListStore.delete)
@@ -26,25 +27,16 @@ export default function TodoList() {
 
 
     const inputChangeHandler = (event) => {
-
         dispatch(setNewTodo(event.target.value))
-
-        // setNewTodo(event.target.value);
     };
 
     const submitTodoHandler = (event) => {
         event.preventDefault();
 
         if (NewTodo.trim() !== "") {
-
             dispatch(submitTodo({ todo: NewTodo },
-                // setTodos((prevState) => {
-                //     return [...prevState, newestTodo];
-                // }),
 
-                // setNewTodo("")
             ))
-
         }
     };
 
@@ -68,75 +60,32 @@ export default function TodoList() {
 
     const moveUpTodoHandler = (id) => {
         dispatch(moveUpTodo({ id }))
-
-        // const todoListAfterMoveUp = [...todos];
-        // [todoListAfterMoveUp[index], todoListAfterMoveUp[index - 1]] = [
-        //     todoListAfterMoveUp[index - 1], // todoListAfterMoveUp[index],
-        // ];
-        // const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
-        //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-        // );
-        // setTodos(todoListAfterMoveUpRegular);
-
     };
 
     const moveDownTodoHandler = (id) => {
 
         dispatch(moveDownTodo({ id }))
 
-        // if (index < todos.length - 1) {
-        //     const todoListAfterMoveDown = [...todos];
-        //     [todoListAfterMoveDown[index], todoListAfterMoveDown[index + 1]] = [
-        //         todoListAfterMoveDown[index + 1],
-        //         todoListAfterMoveDown[index],
-        //     ];
-        //     const todoListAfterMoveDownRegular = todoListAfterMoveDown.map(
-        //         (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-        //     );
-        //     setTodos(todoListAfterMoveDownRegular);
-        // }
     };
 
 
 
-
-    // const [selectedIndex, setSelectedIndex] = useState(null);
-    // const [draggedItemIndex, setDraggedItemIndex] = useState(null);
-    // const [editingIndex, setEditingIndex] = useState(null);
-    // const [editingField, setEditingField] = useState(null);
-
-
+    // ------------------------ Start Drag & Drap ---------------------------
 
     const handleSelectItem = (index) => {
-
         dispatch(setSelectIndex(index))
-
-        // setSelectedIndex(index);
     };
 
     const handleDragStart = (index) => {
         dispatch(setDraggedItemIndex(index))
         dispatch(setSelectIndex(index))
-
-        // setDraggedItemIndex(index);
-        // setSelectedIndex(index);
     };
 
     const handleDragOver = (index) => {
 
         if (DraggedItemIndex !== null && DraggedItemIndex !== index) {
-
             dispatch(DragOver(index))
-            // const items = [...TodoList];
-            // const item = items[DraggedItemIndex];
-            // items.splice(DraggedItemIndex, 1);
-            // items.splice(index, 0, item);
             dispatch(setDraggedItemIndex(index))
-            // setDraggedItemIndex(index);
-
-            // const todoListAfterDragRegular = items.map((todo, newIndex) => ({ ...todo, id: newIndex + 1 }))
-            // setTodos(todoListAfterDragRegular)
-
         }
     };
 
@@ -149,70 +98,59 @@ export default function TodoList() {
         // setSelectedIndex(null);
     };
 
-    // ------------------------ Drag & Drap ---------------------------
+    // ------------------------ End Drag & Drap ---------------------------
 
-
+    const handelChangeJson = (event) => {
+        dispatch(setNewTodoJson(event.target.value))
+        // setNewTodoJson(event.target.value)
+    }
 
     const handleKeyDown = (event) => {
 
         if (event.key === Delete && SelectedIndex !== null) {
 
             dispatch(keyDownDelete())
-            // const newItems = TodoList.filter((_, index) => index !== SelectedIndex);
-
-            // const todoListAfterDragDeleteRegular = newItems.map(
-            //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-            // );
-
-            // setTodos(todoListAfterDragDeleteRegular);
 
             dispatch(setSelectIndex())
-            // setSelectedIndex(null);
         }
         if (event.key === Enter && EditingIndex !== null) {
-            // const items = [...TodoList];
-            // items[editingIndex][editingField] =
-            //     editingField === "id" ? parseInt(NewTodo, 10) : NewTodo;
 
-            // const todoListAfterDragEnterRegular = items.map(
-            //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-            // );
-
-            // setTodos(todoListAfterDragEnterRegular);
-
-
+            dispatch(keyDownEnter())
             dispatch(setEditingIndex())
             dispatch(setEditingField())
-
-            // setEditingIndex(null);
-            // setEditingField(null);
         }
     };
 
     const handleEditField = (index, field) => {
 
+
+        console.log("enter", index, field, TodoList[index].title, TodoList[index].id);
+
         dispatch(setEditingIndex(index))
         dispatch(setEditingField(field))
 
+        // const obj = {
+        //     id: index, title: field
+        // }
+        dispatch(setNewTodoJson(TodoList[index].title))
+        // dispatch(setNewTodoJson(TodoList[index].id))
 
-        // setEditingIndex(index);
-        // setEditingField(field);
-        // setNewTodo(TodoList[index][field]);
+        console.log(EditingIndex, EditingField);
+
     };
 
 
 
-    const handleBlur = () => {
+    // const handleBlur = () => {
 
-        if (EditingIndex !== null) {
-            const items = [...TodoList];
-            items[EditingIndex][EditingField] =
-                EditingField === "id" ? parseInt(NewTodo, 10) : NewTodo;
-            // setTodos(items);
-        }
-        setEditingIndex(null);
-        setEditingField(null);
-    };
+    //     if (EditingIndex !== null) {
+    //         const items = [...TodoList];
+    //         items[EditingIndex][EditingField] =
+    //             EditingField === "id" ? parseInt(NewTodo, 10) : NewTodo;
+    //     }
+    //     setEditingIndex(null);
+    //     setEditingField(null);
+    // };
 
 
     useEffect(() => {
@@ -220,7 +158,7 @@ export default function TodoList() {
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [SelectedIndex, EditingIndex, EditingField, NewTodo, TodoList]);
+    }, [SelectedIndex, EditingIndex, EditingField, setNewTodoJson, TodoList]);
 
     return (
         <>
@@ -322,29 +260,30 @@ export default function TodoList() {
                             {EditingIndex === index && EditingField === "id" ? (
                                 <input
                                     type="number"
-                                    value={NewTodo}
-                                    onChange={inputChangeHandler}
+                                    value={NewTodoJson}
+                                    onChange={handelChangeJson}
                                     onKeyDown={handleKeyDown}
-                                    onBlur={handleBlur}
+                                    // onBlur={handleBlur}
                                     autoFocus
                                     style={{ marginBottom: "5px" }}
                                 />
                             ) : (
                                 <span
-                                // onClick={() => handleEditField(index, "id")}
-                                // style={{ marginBottom: "5px" }}
+                                    onClick={() => handleEditField(index, "id")}
+                                    style={{ marginBottom: "5px" }}
                                 >
-                                    {`{ Id : ${item.id} ,`}
+                                    {`{ id : ${item.id} ,`}
                                 </span>
                             )}
 
-                            {EditingField === index && EditingField === "title" ? (
+                            {EditingIndex === index && EditingField === "title" ? (
+
                                 <input
                                     type="text"
-                                    value={NewTodo}
-                                    onChange={inputChangeHandler}
+                                    value={NewTodoJson}
+                                    onChange={handelChangeJson}
                                     onKeyDown={handleKeyDown}
-                                    onBlur={handleBlur}
+                                    // onBlur={handleBlur}
                                     autoFocus
                                     style={{ marginBottom: "5px" }}
                                 />
@@ -353,7 +292,7 @@ export default function TodoList() {
                                     onClick={() => handleEditField(index, "title")}
                                     style={{ marginBottom: "5px" }}
                                 >
-                                    {` Title : ${item.title} }`}
+                                    {` title : ${item.title} }`}
                                 </span>
                             )}
                         </div>

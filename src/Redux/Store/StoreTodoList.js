@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     todos: [],
     newTodo: "",
+    newTodoJson: "",
     selectedIndex: null,
     draggedItemIndex: null,
     editingIndex: null,
@@ -17,9 +18,14 @@ const Slice = createSlice({
     name: "TodoList",
     initialState,
     reducers: {
-        setNewTodo: (state, action, index, field) => {
+        setNewTodo: (state, action) => {
             state.newTodo = action.payload
-            // state.newTodo = ""
+
+        },
+        setNewTodoJson: (state, action) => {
+
+            state.newTodoJson = action.payload
+
         },
         submitTodo: (state, action) => {
             const newestTodo = {
@@ -34,7 +40,8 @@ const Slice = createSlice({
         deleteTodo: (state, action) => {
             state.todos = state.todos.filter((todo) => {
                 return todo.id !== action.payload.id;
-            }).map((todo, newIndex) => ({ ...todo, id: (newIndex) + 1 }));
+            });
+            // .map((todo, newIndex) => ({ ...todo, id: (newIndex) + 1 }))
 
 
         },
@@ -58,24 +65,15 @@ const Slice = createSlice({
 
                 todoListAfterMoveUp.splice(indexOfTodoMoveUp - 1, 0, tempUp)                  // اضافه کردن آیتم به موقعیت جدید
             }
-            const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
-                (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-            )
+            // const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
+            //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
+            // )
 
             return {
                 ...state,
-                todos: todoListAfterMoveUpRegular,
+                todos: todoListAfterMoveUp,
             }
-            // state.todos = todoListAfterMoveUpRegular
-            // return todoListAfterMoveUpRegular
-            // if (indexOfTodoToMoveUp > 0) {
-            //     [todoListAfterMoveUp[indexOfTodoToMoveUp - 1], [todoListAfterMoveUp[indexOfTodoToMoveUp]]] =
-            //         [todoListAfterMoveUp[indexOfTodoToMoveUp], todoListAfterMoveUp[indexOfTodoToMoveUp - 1]]
-            // }
-            // const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
-            //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-            // );
-            // return (todoListAfterMoveUpRegular);
+
         },
         moveDownTodo: (state, action) => {
 
@@ -93,23 +91,10 @@ const Slice = createSlice({
                 todoListAfterMoveDown.splice(indexOfTodoMoveDown + 1, 0, tempDown)                  // اضافه کردن آیتم به موقعیت جدید
             }
 
-            const todoListAfterMoveDownRegular = todoListAfterMoveDown.map(
-                (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-            )
-
             return {
                 ...state,
-                todos: todoListAfterMoveDownRegular
+                todos: todoListAfterMoveDown
             }
-
-            // if (indexOfTodoToMoveUp > 0) {
-            //     [todoListAfterMoveUp[indexOfTodoToMoveUp - 1], [todoListAfterMoveUp[indexOfTodoToMoveUp]]] =
-            //         [todoListAfterMoveUp[indexOfTodoToMoveUp], todoListAfterMoveUp[indexOfTodoToMoveUp - 1]]
-            // }
-            // const todoListAfterMoveUpRegular = todoListAfterMoveUp.map(
-            //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-            // );
-            // return (todoListAfterMoveUpRegular);
 
         },
 
@@ -120,6 +105,7 @@ const Slice = createSlice({
         },
         setDraggedItemIndex: (state, action) => {
             state.draggedItemIndex = action.payload
+
         },
         setDragStart: (state, action) => {
 
@@ -129,13 +115,13 @@ const Slice = createSlice({
             const item = items[state.draggedItemIndex];
             items.splice(state.draggedItemIndex, 1);
             items.splice(index, 0, item);
-            // setDraggedItemIndex(index);
 
-            const todoListAfterDragRegular = items.map((todo, newIndex) => ({ ...todo, id: newIndex + 1 }))
+            // const todoListAfterDragRegular = items.map((todo, newIndex) => ({ ...todo, id: newIndex + 1 }))
             return {
                 ...state,
-                todos: todoListAfterDragRegular
+                todos: items
             }
+
         },
 
         //////////////////// End Drag & Drop //////////////////////
@@ -143,17 +129,19 @@ const Slice = createSlice({
         keyDownDelete: (state, action, index) => {
 
             const newItems = state.todos.filter((_, index) => index !== state.selectedIndex);
-            const todoListAfterDragDeleteRegular = newItems.map(
-                (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-            );
+            // const todoListAfterDragDeleteRegular = newItems.map(
+            //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
+            // );
+
             return {
                 ...state,
-                todos: todoListAfterDragDeleteRegular
+                todos: newItems
             }
-        },  ////////// For Delete Btn/////////
+        },  ////////// For Press Delete Btn/////////
 
         setEditingIndex: (state, action) => {
             state.editingIndex = action.payload
+
         },
         setEditingField: (state, action) => {
             state.editingField = action.payload
@@ -164,35 +152,34 @@ const Slice = createSlice({
 
             const items = [...state.todos];
             items[state.editingIndex][state.editingField] =
-                state.editingField === "id" ? parseInt(state.newTodo, 10) : state.newTodo;
+                state.editingField === "id" ? parseInt(state.newTodoJson, 10) : state.newTodoJson;
 
-            const todoListAfterDragEnterRegular = items.map(
-                (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
-            );
-
-            return {
-                ...state,
-                todos: todoListAfterDragEnterRegular
-            }
-
-        },
-
-        blure: (state, action) => {
-            const items = [...state.todos];
-            items[state.editingIndex][state.editingField] =
-                state.editingField === "id" ? parseInt(state.newTodo, 10) : state.newTodo;
+            // const todoListAfterDragEnterRegular = items.map(
+            //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
+            // );
 
             return {
                 ...state,
                 todos: items
             }
-            // setTodos(items);
-        }
+
+        },
+
+        // blure: (state, action) => {
+        //     const items = [...state.todos];
+        //     items[state.editingIndex][state.editingField] =
+        //         state.editingField === "id" ? parseInt(state.newTodo, 10) : state.newTodo;
+
+        //     return {
+        //         ...state,
+        //         todos: items
+        //     }
+        // }
 
     }
 })
 
-export const { setNewTodo, submitTodo, deleteTodo, removeAllTodo, moveUpTodo, moveDownTodo, setSelectIndex, setDraggedItemIndex,
+export const { setNewTodo, setNewTodoJson, submitTodo, deleteTodo, removeAllTodo, moveUpTodo, moveDownTodo, setSelectIndex, setDraggedItemIndex,
     DragOver, keyDownDelete, setEditingIndex, setEditingField, keyDownEnter, blure } = Slice.actions
 export default Slice.reducer
 
