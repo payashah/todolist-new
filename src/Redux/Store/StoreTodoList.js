@@ -151,17 +151,14 @@ const Slice = createSlice({
         keyDownEnter: (state, action) => {
 
             const items = [...state.todos];
-            items[state.editingIndex][state.editingField] =
-                state.editingField === "id" ? parseInt(state.newTodoJson, 10) : state.newTodoJson;
+            console.log("log", items[state.editingIndex]);
+
+            items[state.editingIndex][state.editingField] = state.editingField === "id" ? parseInt(state.newTodoJson, 10) : state.newTodoJson;
+
 
             // const todoListAfterDragEnterRegular = items.map(
             //     (todo, newIndex) => ({ ...todo, id: newIndex + 1 })
             // );
-
-            return {
-                ...state,
-                todos: items
-            }
 
         },
 

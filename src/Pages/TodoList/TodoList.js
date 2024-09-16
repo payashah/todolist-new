@@ -106,6 +106,7 @@ export default function TodoList() {
     }
 
     const handleKeyDown = (event) => {
+        console.log("aa");
 
         if (event.key === Delete && SelectedIndex !== null) {
 
@@ -116,7 +117,7 @@ export default function TodoList() {
         if (event.key === Enter && EditingIndex !== null) {
 
             dispatch(keyDownEnter())
-            dispatch(setEditingIndex())
+            // dispatch(setEditingIndex())                  ///////نباید ایندکس مقدار اولیه را بگیرد////////
             dispatch(setEditingField())
         }
     };
@@ -124,7 +125,7 @@ export default function TodoList() {
     const handleEditField = (index, field) => {
 
 
-        console.log("enter", index, field, TodoList[index].title, TodoList[index].id);
+        // console.log("enter", index, field, TodoList[index].title, TodoList[index].id);
 
         dispatch(setEditingIndex(index))
         dispatch(setEditingField(field))
@@ -132,7 +133,7 @@ export default function TodoList() {
         // const obj = {
         //     id: index, title: field
         // }
-        dispatch(setNewTodoJson(TodoList[index].title))
+        dispatch(setNewTodoJson(TodoList[index].title, TodoList[index].id))
         // dispatch(setNewTodoJson(TodoList[index].id))
 
         console.log(EditingIndex, EditingField);
@@ -205,7 +206,7 @@ export default function TodoList() {
             <ul className="todolist-ul">
                 {TodoList.map((todo, index) => (
                     <li className="todolist-ul-li" key={todo.id}>
-                        <p className="todolist-ul-li-title">{index + 1} - {todo.title}</p>
+                        <p className="todolist-ul-li-title"> {todo.title}</p>
                         <div className="todolist-ul-li-btnBox">
                             <button
                                 className="todolist-ul-li-btnBox-btn delete"
