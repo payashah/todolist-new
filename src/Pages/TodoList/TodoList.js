@@ -124,16 +124,13 @@ export default function TodoList() {
 
     const handleEditField = (index, field) => {
 
-
-        // console.log("enter", index, field, TodoList[index].title, TodoList[index].id);
-
         dispatch(setEditingIndex(index))
         dispatch(setEditingField(field))
 
         // const obj = {
         //     id: index, title: field
         // }
-        dispatch(setNewTodoJson(TodoList[index].title, TodoList[index].id))
+        dispatch(setNewTodoJson((TodoList[index].title, TodoList[index].id)))
         // dispatch(setNewTodoJson(TodoList[index].id))
 
         console.log(EditingIndex, EditingField);
@@ -152,7 +149,7 @@ export default function TodoList() {
             //     EditingField === "id" ? parseInt(NewTodo, 10) : NewTodo;
         }
 
-        dispatch(setEditingIndex())                  ///////نباید ایندکس مقدار اولیه را بگیرد////////
+        // dispatch(setEditingIndex())                  ///////نباید ایندکس مقدار اولیه را بگیرد////////
         dispatch(setEditingField())
         // setEditingIndex(null);
         // setEditingField(null);
