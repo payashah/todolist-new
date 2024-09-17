@@ -151,7 +151,6 @@ const Slice = createSlice({
         keyDownEnter: (state, action) => {
 
             const items = [...state.todos];
-            console.log("log", items[state.editingIndex]);
 
             items[state.editingIndex][state.editingField] = state.editingField === "id" ? parseInt(state.newTodoJson, 10) : state.newTodoJson;
 
@@ -162,16 +161,15 @@ const Slice = createSlice({
 
         },
 
-        // blure: (state, action) => {
-        //     const items = [...state.todos];
-        //     items[state.editingIndex][state.editingField] =
-        //         state.editingField === "id" ? parseInt(state.newTodo, 10) : state.newTodo;
+        blure: (state, action) => {
+            const items = [...state.todos];
+            items[state.editingIndex][state.editingField] = state.editingField === "id" ? parseInt(state.newTodoJson, 10) : state.newTodoJson;
 
-        //     return {
-        //         ...state,
-        //         todos: items
-        //     }
-        // }
+            // return {
+            //     ...state,
+            //     todos: items
+            // }
+        }
 
     }
 })

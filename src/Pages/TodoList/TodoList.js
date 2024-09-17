@@ -6,7 +6,7 @@ import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setNewTodo, deleteTodo, moveDownTodo, moveUpTodo, removeAllTodo, submitTodo, setSelectIndex, setDraggedItemIndex,
-    DragOver, keyDownDelete, setNewTodoJson, setEditingIndex, setEditingField, keyDownEnter
+    DragOver, keyDownDelete, setNewTodoJson, setEditingIndex, setEditingField, keyDownEnter, blure
 } from "../../Redux/Store/StoreTodoList";
 import { v4 as uuidv4 } from "uuid"
 
@@ -142,16 +142,20 @@ export default function TodoList() {
 
 
 
-    // const handleBlur = () => {
+    const handleBlur = () => {
 
-    //     if (EditingIndex !== null) {
-    //         const items = [...TodoList];
-    //         items[EditingIndex][EditingField] =
-    //             EditingField === "id" ? parseInt(NewTodo, 10) : NewTodo;
-    //     }
-    //     setEditingIndex(null);
-    //     setEditingField(null);
-    // };
+        if (EditingIndex !== null) {
+
+            dispatch(blure())
+            // const items = [...TodoList];
+            // items[EditingIndex][EditingField] =
+            //     EditingField === "id" ? parseInt(NewTodo, 10) : NewTodo;
+        }
+
+        dispatch(setEditingIndex())                  ///////نباید ایندکس مقدار اولیه را بگیرد////////
+        dispatch(setEditingField())
+
+    };
 
 
     useEffect(() => {
@@ -264,7 +268,7 @@ export default function TodoList() {
                                     value={NewTodoJson}
                                     onChange={handelChangeJson}
                                     onKeyDown={handleKeyDown}
-                                    // onBlur={handleBlur}
+                                    onBlur={handleBlur}
                                     autoFocus
                                     style={{ marginBottom: "5px" }}
                                 />
@@ -284,7 +288,7 @@ export default function TodoList() {
                                     value={NewTodoJson}
                                     onChange={handelChangeJson}
                                     onKeyDown={handleKeyDown}
-                                    // onBlur={handleBlur}
+                                    onBlur={handleBlur}
                                     autoFocus
                                     style={{ marginBottom: "5px" }}
                                 />
