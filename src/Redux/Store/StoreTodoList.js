@@ -23,9 +23,7 @@ const Slice = createSlice({
 
         },
         setNewTodoJson: (state, action) => {
-
             state.newTodoJson = action.payload
-
         },
         submitTodo: (state, action) => {
             const newestTodo = {

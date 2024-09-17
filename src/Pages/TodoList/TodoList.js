@@ -106,7 +106,6 @@ export default function TodoList() {
     }
 
     const handleKeyDown = (event) => {
-        console.log("aa");
 
         if (event.key === Delete && SelectedIndex !== null) {
 
@@ -127,13 +126,11 @@ export default function TodoList() {
         dispatch(setEditingIndex(index))
         dispatch(setEditingField(field))
 
-        // const obj = {
-        //     id: index, title: field
-        // }
-        dispatch(setNewTodoJson(TodoList[index].title, TodoList[index].id))
-        // dispatch(setNewTodoJson(TodoList[index].id))
-
-        console.log(EditingIndex, EditingField);
+        {
+            field === 'title' ?
+                dispatch(setNewTodoJson(TodoList[index].title)) :
+                dispatch(setNewTodoJson(TodoList[index].id))
+        }
 
     };
 
