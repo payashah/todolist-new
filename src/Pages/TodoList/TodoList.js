@@ -146,7 +146,7 @@ export default function TodoList() {
 
         if (EditingIndex !== null) {
 
-            dispatch(blure())
+            // dispatch(blure())
             // const items = [...TodoList];
             // items[EditingIndex][EditingField] =
             //     EditingField === "id" ? parseInt(NewTodo, 10) : NewTodo;
@@ -154,7 +154,8 @@ export default function TodoList() {
 
         dispatch(setEditingIndex())                  ///////نباید ایندکس مقدار اولیه را بگیرد////////
         dispatch(setEditingField())
-
+        // setEditingIndex(null);
+        // setEditingField(null);
     };
 
 
