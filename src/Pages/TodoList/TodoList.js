@@ -130,7 +130,7 @@ export default function TodoList() {
         // const obj = {
         //     id: index, title: field
         // }
-        dispatch(setNewTodoJson((TodoList[index].title, TodoList[index].id)))
+        dispatch(setNewTodoJson(TodoList[index].title, TodoList[index].id))
         // dispatch(setNewTodoJson(TodoList[index].id))
 
         console.log(EditingIndex, EditingField);
