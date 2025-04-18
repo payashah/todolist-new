@@ -84,8 +84,9 @@ const Slice = createSlice({
 
             const NewMoveUpTodo = {
                 ...state,
-                todos: todoListAfterMoveUp,
+                todos: todoListAfterMoveUp
             }
+
             saveLocalStorage(NewMoveUpTodo)
             return NewMoveUpTodo
 
@@ -110,11 +111,10 @@ const Slice = createSlice({
             const NewMoveDownTodo = {
                 ...state,
                 todos: todoListAfterMoveDown
-
             }
-
             saveLocalStorage(NewMoveDownTodo)
             return NewMoveDownTodo
+
 
         },
 
@@ -130,7 +130,6 @@ const Slice = createSlice({
 
         },
         setDragStart: (state, action) => {
-            saveLocalStorage(state)
 
         },
         DragOver: (state, action, index) => {
@@ -189,10 +188,8 @@ const Slice = createSlice({
 
         blure: (state, action) => {
             const items = [...state.todos];
-            items[state.editingIndex][state.editingField] =
-                state.editingField === "id" ? parseInt(state.newTodoJson, 10) : state.newTodoJson;
+            items[state.editingIndex][state.editingField] = state.editingField === "id" ? parseInt(state.newTodoJson, 10) : state.newTodoJson;
             saveLocalStorage(state)
-
         }
 
     }
