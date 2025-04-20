@@ -12,7 +12,7 @@ const getIniitialState = () => {
             selectedIndex: null,
             draggedItemIndex: null,
             editingIndex: null,
-            editingField: null,
+            editingField: "title",
             delete: "Delete",
             enter: "Enter"
 
@@ -176,14 +176,19 @@ const Slice = createSlice({
         },
 
         keyDownEnter: (state, action) => {
+            if (
+                state.editingIndex === null ||
+                state.editingIndex === undefined ||
+                state.editingIndex < 0 ||
+                state.editingIndex >= state.todos.length
+            ) {
+                return; // یا خطا را به صورت مناسب مدیریت کنید
+            }
 
             const items = [...state.todos];
-
             items[state.editingIndex][state.editingField] =
                 state.editingField === "id" ? parseInt(state.newTodoJson, 10) : state.newTodoJson;
-            saveLocalStorage(state)
-
-
+            saveLocalStorage(state);
         },
 
         blure: (state, action) => {
